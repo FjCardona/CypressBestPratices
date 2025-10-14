@@ -6,4 +6,8 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  env: {
+    baseUrl: "https://www.saucedemo.com/",
+    apiUrl: "http://localhost:3001/api",
+  },
 });
