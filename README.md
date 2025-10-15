@@ -10,6 +10,8 @@ The suite uses **fixture-based data-driven testing**, **Page Object Model (POM)*
 ---
 
 ## 🏗️ Project Structure
+
+<code>
 cypress/
 ├── e2e/
 │ ├── add_to_cart.cy.js # Test for adding multiple products
@@ -28,3 +30,4 @@ cypress/
 │ └── cartPage.js # Page Object for Cart
 │
 └── cypress.config.js # Cypress configuration
+</code>
