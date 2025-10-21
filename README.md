@@ -9,25 +9,38 @@ The suite uses **fixture-based data-driven testing**, **Page Object Model (POM)*
 
 ---
 
-## 🏗️ Project Structure
+## File structure
 
-<code>
+Below is the project file/folder structure (root is the project base):
+
+```
+cypress.config.js
+package.json
+README.md
 cypress/
-├── e2e/
-│ ├── add_to_cart.cy.js # Test for adding multiple products
-│ ├── login.cy.js # Authentication test suite
-│ ├── checkout.cy.js # Checkout validation test suite
-│
-├── fixtures/
-│ └── products.json # Product data used for data-driven tests
-│
-├── support/
-│ ├── commands.js # Custom reusable commands
-│ ├── e2e.js # Global hooks and imports
-│ └── pages/
-│ ├── loginPage.js # Page Object for Login
-│ ├── inventoryPage.js # Page Object for Inventory
-│ └── cartPage.js # Page Object for Cart
-│
-└── cypress.config.js # Cypress configuration
-</code>
+	downloads/
+	e2e/
+		CartFunctions.cy.js       # E2E test using page objects
+		DataDrivenCart.cy.js      # Data-driven E2E test
+	fixtures/
+		example.json
+		products.json
+		users.json
+	support/
+		commands.js               # Custom Cypress commands
+		e2e.js                    # Support file loaded before tests
+		pageObjects/
+			checkoutPage.js
+			loginPage.js
+			productsPage.js
+
+```
+
+Short descriptions:
+
+- `cypress.config.js` - Cypress configuration for the project.
+- `package.json` - Node project manifest with scripts and dependencies.
+- `cypress/` - Cypress test files, fixtures and support utilities.
+- `cypress/e2e/` - End-to-end test specs.
+- `cypress/fixtures/` - Static test data used by specs.
+- `cypress/support/pageObjects/` - Page Object Model files used by tests.
