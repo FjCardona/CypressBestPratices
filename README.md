@@ -35,5 +35,3 @@ Short descriptions:
 - `cypress/e2e/` - End-to-end test specs.
 - `cypress/fixtures/` - Static test data used by specs.
 - `cypress/support/pageObjects/` - Page Object Model files used by tests.
-
-If you'd like the file structure rendered differently (e.g., as a markdown tree plugin, or with additional file descriptions), tell me how you prefer it and I can update the README accordingly.
