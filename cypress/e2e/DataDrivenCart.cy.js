@@ -39,6 +39,7 @@ Scenario: Remove item from cart
     | Sauce Labs Fleece Jacket     |
 */
 
+import { checkoutPage } from '../support/pageObjects/checkoutPage'
 import { loginPage } from '../support/pageObjects/loginPage'
 import { productsPage } from '../support/pageObjects/productsPage'
 
@@ -55,13 +56,47 @@ describe("Data Driven Cart Tests", () => {
     context("Adding multiple items to the cart", () => {
         it("should add multiple items and validate cart", () => {
             cy.fixture('products').then((productsFixture) => {
+                cy.addAndRemoveItems(productsFixture)
+                
+            })
+            productsPage.elements.cartBadge().should('have.text', '4')
+        })
+    })
+
+    context("Validate cart total", () => {
+        it("should validate the total price in the cart", () => {
+            cy.fixture('products').then((productsFixture) => {
+                let expectedTotal = 0
                 productsFixture.products.forEach((product) => {
                     cy.getByData(product.addToCart).click()
+                    expectedTotal += product.price
                 })
-                productsPage.elements.cartBadge().should('have.text', '4')
+                productsPage.goToCheckout()
+                //Fill the checkout info with dummy data
+                checkoutPage.fillCheckoutInfo('John', 'Doe', '12345')
+                // Validate subtotal
+                checkoutPage.elements.subTotalLabel().should('have.text', 'Item total: ' + `$${expectedTotal.toFixed(2)}`)
+                // Validate total with tax (assuming a tax rate of 8%)
+                const tax = expectedTotal * 0.08
+                const total = expectedTotal + tax
+                checkoutPage.elements.totalLabel().should('have.text', 'Total: ' + `$${total.toFixed(2)}`)
+            })
+
+        })
+    })
+
+    context("Remove item from cart", () => {
+        it("should go to the cart and remove an item", () => {
+            cy.fixture('products').then((productsFixture) => {
+                cy.addAndRemoveItems(productsFixture)
+                // Go to the cart
+                productsPage.elements.cartButton().click()
+                // Remove the product "Sauce Labs Bike Light"
+                productsPage.removeItem('Sauce Labs Bike Light')
+                productsPage.removeItem('Test.allTheThings() T-Shirt (Red)')
+
             })
         })
     })
+
 })
-
-
