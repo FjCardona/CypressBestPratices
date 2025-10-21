@@ -14,3 +14,10 @@ Cypress.Commands.add('getByData', (dataTestAttribute) => {
   const safeSelector = CSS.escape(dataTestAttribute);
   return cy.get(`[data-test="${safeSelector}"]`);
 });
+
+Cypress.Commands.add('addAndRemoveItems', (productsFixture) => {
+  productsFixture.products.forEach((product) => {
+    cy.getByData(product.addToCart).click();
+  });
+});
+
